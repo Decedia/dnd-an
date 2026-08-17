@@ -1,44 +1,45 @@
-# Product Context: Next.js Starter Template
+# Product Context: DND-AN
 
-## Why This Template Exists
+## Why DND-AN Exists
 
-Starting a new Next.js project involves boilerplate setup, configuration decisions, and establishing patterns. This template provides a clean, opinionated starting point that eliminates setup friction and establishes best practices from the start. It's optimized for AI-assisted development, where an AI can quickly extend the template based on user requirements.
+D&D character creation often involves juggling paper sheets, dice, and rulebooks. DND-AN digitizes this process into a mobile-first web app that feels at home on a phone during a game session. It uses a dark fantasy aesthetic with gold and burgundy accents to evoke the feel of a D&D adventure, and stores everything locally so there's no account or login friction.
 
 ## Problems It Solves
 
-1. **Setup Time**: Eliminates boilerplate configuration (TypeScript, Tailwind, ESLint)
-2. **Decision Fatigue**: Pre-made choices for tooling and patterns
-3. **AI Context**: Memory bank provides persistent context for AI assistants
-4. **Extensibility**: Recipe system for adding common features
-5. **Consistency**: Standardized project structure and conventions
+1. **Friction**: No signup, no login, no syncing required - just open and create
+2. **Mobile Experience**: Designed for narrow screens from the start, with bottom navigation and large tap targets
+3. **Persistence**: localStorage keeps characters between sessions without a backend
+4. **Visual Identity**: Dark fantasy theme with Cinzel headings and Font Awesome dragons makes character creation feel thematic
+5. **Extensibility**: Clean component structure makes adding D&D rules straightforward
 
 ## How It Should Work (User Flow)
 
-1. User starts with this template
-2. User describes what they want to build to AI assistant
-3. AI adds pages, components, and features as needed
-4. AI uses recipes for common additions (database, auth)
-5. User previews changes via hot reload
-6. Iterate until satisfied
-7. Deploy
+1. User opens DND-AN on their phone
+2. Taps the dragon "New" button in the bottom nav
+3. Steps through the wizard: Ability Scores → Race → Class → Skills → Equipment → Spells → Summary
+4. Taps "Save Character" on the Summary step
+5. Character is stored in localStorage and appears in the Home/Library list
+6. User can browse saved characters and delete them as needed
 
 ## Key User Experience Goals
 
-- **Zero to Feature Fast**: Get building immediately, no setup required
-- **AI-Friendly**: Memory bank and recipes make AI assistance effective
-- **Flexible Foundation**: Can become any type of application
-- **Best Practices Built-In**: TypeScript strict mode, ESLint, clean structure
+- **Mobile-First**: Single column, large buttons, bottom nav always reachable
+- **Theme Consistency**: Dark charcoal backgrounds, parchment cards, burgundy accents, gold highlights
+- **Low Friction**: No forms to sign up, no setup - just create
+- **Progressive Disclosure**: Wizard breaks character creation into manageable steps
+- **Offline Capable**: Works without internet after first load (CDN fonts/icons)
 
-## What This Template Provides
+## What DND-AN Provides
 
-1. **Clean App Structure**: Single page ready for expansion
-2. **Type Safety**: Full TypeScript setup with strict mode
-3. **Modern Styling**: Tailwind CSS 4 ready to use
-4. **Code Quality**: ESLint configured
-5. **Extensibility**: Recipe system for common features
+1. **Visual Theme**: Dark fantasy palette, Cinzel + Inter fonts, Font Awesome dragon motif
+2. **Navigation**: Floating pill bottom nav with Home, New Character (dragon), and Library
+3. **Character Storage**: `dnd-char-<id>` keys with `dnd-char-index` for listing
+4. **Wizard Shell**: 7-step progress indicator with Next/Back and Save
+5. **Empty States**: Friendly prompts when no characters exist
 
 ## Integration Points
 
-- **Database**: Use add-database recipe for Drizzle + SQLite
-- **Styling**: Tailwind CSS pre-configured
-- **AI Assistance**: Memory bank for context persistence
+- **Storage**: Browser localStorage only
+- **Icons**: Font Awesome 6 CDN
+- **Fonts**: Google Fonts CDN (Cinzel, Inter)
+- **No external APIs**: Everything runs client-side

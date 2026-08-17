@@ -1,13 +1,13 @@
-# Technical Context: Next.js Starter Template
+# Technical Context: DND-AN
 
 ## Technology Stack
 
 | Technology   | Version | Purpose                         |
 | ------------ | ------- | ------------------------------- |
-| Next.js      | 16.x    | React framework with App Router |
+| Vite         | 6.x     | Build tool and dev server       |
 | React        | 19.x    | UI library                      |
-| TypeScript   | 5.9.x   | Type-safe JavaScript            |
 | Tailwind CSS | 4.x     | Utility-first CSS               |
+| Font Awesome | 6.5.x   | Icon font via CDN               |
 | Bun          | Latest  | Package manager & runtime       |
 
 ## Development Environment
@@ -21,35 +21,35 @@
 
 ```bash
 bun install        # Install dependencies
-bun dev            # Start dev server (http://localhost:3000)
+bun dev            # Start dev server (http://localhost:5173)
 bun build          # Production build
-bun start          # Start production server
 bun lint           # Run ESLint
 bun typecheck      # Run TypeScript type checking
 ```
 
 ## Project Configuration
 
-### Next.js Config (`next.config.ts`)
+### Vite Config (`vite.config.js`)
 
-- App Router enabled
-- Default settings for flexibility
+- React plugin for JSX
+- Dev server on port 5173
 
 ### TypeScript Config (`tsconfig.json`)
 
 - Strict mode enabled
-- Path alias: `@/*` → `src/*`
 - Target: ESNext
+- JSX: react-jsx
 
 ### Tailwind CSS 4 (`postcss.config.mjs`)
 
 - Uses `@tailwindcss/postcss` plugin
 - CSS-first configuration (v4 style)
+- Custom theme: Cinzel + Inter fonts, dark fantasy palette (charcoal, parchment, burgundy, gold)
 
 ### ESLint (`eslint.config.mjs`)
 
-- Uses `eslint-config-next`
-- Flat config format
+- Flat config format (ESLint v9)
+- React Hooks and React Refresh plugins
 
 ## Key Dependencies
 
@@ -57,7 +57,6 @@ bun typecheck      # Run TypeScript type checking
 
 ```json
 {
-  "next": "^16.1.3", // Framework
   "react": "^19.2.3", // UI library
   "react-dom": "^19.2.3" // React DOM
 }
@@ -67,14 +66,19 @@ bun typecheck      # Run TypeScript type checking
 
 ```json
 {
-  "typescript": "^5.9.3",
-  "@types/node": "^24.10.2",
   "@types/react": "^19.2.7",
   "@types/react-dom": "^19.2.3",
-  "@tailwindcss/postcss": "^4.1.17",
+  "@vitejs/plugin-react": "^4.7.0",
+  "autoprefixer": "^10.5.4",
+  "postcss": "^8.5.6",
   "tailwindcss": "^4.1.17",
+  "@tailwindcss/postcss": "^4.1.17",
+  "typescript": "^5.9.3",
+  "vite": "^6.4.3",
   "eslint": "^9.39.1",
-  "eslint-config-next": "^16.0.0"
+  "eslint-plugin-react-hooks": "^7.1.1",
+  "eslint-plugin-react-refresh": "^0.5.4",
+  "globals": "^17.11.0"
 }
 ```
 
@@ -85,56 +89,52 @@ bun typecheck      # Run TypeScript type checking
 ├── .gitignore              # Git ignore rules
 ├── package.json            # Dependencies and scripts
 ├── bun.lock                # Bun lockfile
-├── next.config.ts          # Next.js configuration
+├── vite.config.js          # Vite configuration
 ├── tsconfig.json           # TypeScript configuration
+├── tsconfig.node.json      # TypeScript config for Vite
 ├── postcss.config.mjs      # PostCSS (Tailwind) config
 ├── eslint.config.mjs       # ESLint configuration
+├── index.html              # Vite entry HTML
 ├── public/                 # Static assets
-│   └── .gitkeep
 └── src/                    # Source code
-    └── app/                # Next.js App Router
-        ├── layout.tsx      # Root layout
-        ├── page.tsx        # Home page
-        ├── globals.css     # Global styles
-        └── favicon.ico     # Site icon
+    ├── main.jsx            # React entry point
+    ├── App.jsx             # Root component with navigation state
+    ├── index.css           # Global styles + Tailwind imports
+    ├── utils/
+    │   ├── storage.js      # localStorage helper
+    │   └── navigation.jsx  # Navigation context
+    ├── components/
+    │   ├── BottomNav.jsx   # Floating bottom navigation
+    │   └── Wizard.jsx      # Multi-step character creation wizard
+    └── pages/
+        ├── Home.jsx        # Character list home screen
+        └── CharacterLibrary.jsx # Character library view
 ```
 
 ## Technical Constraints
 
 ### Starting Point
 
-- Minimal structure - expand as needed
-- No database by default (use recipe to add)
-- No authentication by default (add when needed)
+- Mobile-first, single-page feel with view-based routing
+- No backend, no login, no database
+- localStorage for persistence only
 
 ### Browser Support
 
 - Modern browsers (ES2020+)
 - No IE11 support
 
-## Performance Considerations
-
-### Image Optimization
-
-- Use Next.js `Image` component for optimization
-- Place images in `public/` directory
-
-### Bundle Size
+### Performance Considerations
 
 - Tree-shaking enabled by default
 - Tailwind CSS purges unused styles
-
-### Core Web Vitals
-
-- Server Components reduce client JavaScript
-- Streaming and Suspense for better UX
 
 ## Deployment
 
 ### Build Output
 
-- Server-rendered pages by default
-- Can be configured for static export
+- Static assets in `dist/`
+- Can be deployed to any static host (Vercel, Netlify, etc.)
 
 ### Environment Variables
 

@@ -1,87 +1,85 @@
-# Active Context: Next.js Starter Template
+# Active Context: DND-AN Character Creator
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**App Status**: ✅ Foundation complete
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+DND-AN is a mobile-first D&D 5e character creator web app. The foundation is scaffolded with Vite + React + Tailwind CSS 4, featuring a dark fantasy theme with floating bottom navigation, localStorage persistence, and a multi-step wizard shell.
 
 ## Recently Completed
 
-- [x] Base Next.js 16 setup with App Router
-- [x] TypeScript configuration with strict mode
-- [x] Tailwind CSS 4 integration
-- [x] ESLint configuration
-- [x] Memory bank documentation
-- [x] Recipe system for common features
+- [x] Replaced Next.js template with Vite + React scaffold
+- [x] Configured Tailwind CSS 4 with dark fantasy theme (charcoal, parchment, burgundy, gold)
+- [x] Added Google Fonts (Cinzel for titles, Inter for body) via CDN
+- [x] Added Font Awesome 6 via CDN for icons
+- [x] Implemented `src/utils/storage.js` with localStorage helpers (saveCharacter, loadCharacter, listCharacters, deleteCharacter)
+- [x] Implemented `src/utils/navigation.jsx` context-based navigation (useNavigate, useCurrentView)
+- [x] Built `BottomNav.jsx` floating pill navigation with dragon hero button
+- [x] Built `Home.jsx` with "My Characters" list and empty state
+- [x] Built `CharacterLibrary.jsx` character list view
+- [x] Built `Wizard.jsx` multi-step shell with 7 placeholder steps (Ability Scores, Race, Class, Skills, Equipment, Spells, Summary)
+- [x] Implemented progress indicator and Next/Back navigation in wizard
+- [x] Wired wizard Save button to localStorage via `saveCharacter()`
+- [x] Verified `bun build`, `bun lint`, and `bun typecheck` all pass
 
 ## Current Structure
 
 | File/Directory | Purpose | Status |
 |----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
-| `.kilocode/` | AI context & recipes | ✅ Ready |
+| `index.html` | Vite entry with CDN fonts/icons | ✅ Ready |
+| `src/main.jsx` | React entry point | ✅ Ready |
+| `src/App.jsx` | Root component + NavigationProvider | ✅ Ready |
+| `src/index.css` | Tailwind imports + custom theme | ✅ Ready |
+| `src/utils/storage.js` | localStorage helper | ✅ Ready |
+| `src/utils/navigation.jsx` | Navigation context | ✅ Ready |
+| `src/components/BottomNav.jsx` | Floating bottom nav | ✅ Ready |
+| `src/components/Wizard.jsx` | 7-step character wizard | ✅ Ready |
+| `src/pages/Home.jsx` | Character list home | ✅ Ready |
+| `src/pages/CharacterLibrary.jsx` | Character library view | ✅ Ready |
 
 ## Current Focus
 
-The template is ready. Next steps depend on user requirements:
+Foundation is complete. Next steps depend on user requirements:
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+1. Implement race/class rules and stat calculations
+2. Add skill selection and equipment logic
+3. Add spell lists and selection
+4. Implement character editing (load saved character into wizard)
+5. Add character deletion from Home view
 
 ## Quick Start Guide
 
-### To add a new page:
+### To run the dev server:
 
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
+```bash
+bun dev
 ```
 
-### To add components:
+### To add a new wizard step:
 
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
+Edit `src/components/Wizard.jsx`:
+1. Add step name to `STEPS` array
+2. Create a new `StepXxx` component
+3. Add it to `STEP_COMPONENTS` array
+
+### To add localStorage persistence:
+
+Use `src/utils/storage.js`:
+```js
+import { saveCharacter, loadCharacter, listCharacters, deleteCharacter } from '../utils/storage.js'
 ```
-
-### To add a database:
-
-Follow `.kilocode/recipes/add-database.md`
-
-### To add API routes:
-
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
 
 ## Pending Improvements
 
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+- [ ] Implement character editing (pre-fill wizard from saved character)
+- [ ] Add character detail/view screen
+- [ ] Implement D&D 5e rules for ability scores, races, classes
+- [ ] Add skill selection with proficiency logic
+- [ ] Add equipment selection
+- [ ] Add spell lists and spell slot tracking
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
-| Initial | Template created with base setup |
+| 2026-08-17 | Scaffolded DND-AN with Vite + React + Tailwind, built Home, BottomNav, Wizard, and storage plumbing |

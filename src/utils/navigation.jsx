@@ -1,16 +1,18 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 const NavigationContext = createContext(null)
 
 export function NavigationProvider({ children }) {
-  const [currentView, setCurrentView] = React.useState('home')
+  const [currentView, setCurrentView] = useState('home')
+  const [params, setParams] = useState({})
 
-  const navigate = (view) => {
+  const navigate = (view, payload = {}) => {
     setCurrentView(view)
+    setParams(payload)
   }
 
   return (
-    <NavigationContext.Provider value={{ currentView, navigate }}>
+    <NavigationContext.Provider value={{ currentView, navigate, params }}>
       {children}
     </NavigationContext.Provider>
   )
@@ -26,4 +28,10 @@ export function useCurrentView() {
   const context = useContext(NavigationContext)
   if (!context) throw new Error('useCurrentView must be used within NavigationProvider')
   return context.currentView
+}
+
+export function useNavigationParams() {
+  const context = useContext(NavigationContext)
+  if (!context) throw new Error('useNavigationParams must be used within NavigationProvider')
+  return context.params
 }

@@ -4,7 +4,8 @@ import BottomNav from './components/BottomNav.jsx'
 import Home from './pages/Home.jsx'
 import CharacterLibrary from './pages/CharacterLibrary.jsx'
 import Wizard from './components/Wizard.jsx'
-import { saveCharacter, deleteCharacter, loadCharacter } from './utils/storage.js'
+import CharacterSheet from './pages/CharacterSheet.jsx'
+import { saveCharacter, deleteCharacter } from './utils/storage.js'
 
 function AppContent() {
   const currentView = useCurrentView()
@@ -28,7 +29,10 @@ function AppContent() {
         <CharacterLibrary onDelete={handleDeleteCharacter} />
       )}
       {currentView === 'new' && (
-        <Wizard onSave={handleSaveCharacter} onCancel={() => {}} />
+        <Wizard onSave={handleSaveCharacter} />
+      )}
+      {currentView === 'character' && (
+        <CharacterSheet />
       )}
       <BottomNav />
     </div>

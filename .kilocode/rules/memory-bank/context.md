@@ -2,9 +2,9 @@
 
 ## Current State
 
-**App Status**: ✅ Foundation complete
+**App Status**: ✅ Full 9-step wizard + character sheet complete
 
-DND-AN is a mobile-first D&D 5e character creator web app. The foundation is scaffolded with Vite + React + Tailwind CSS 4, featuring a dark fantasy theme with floating bottom navigation, localStorage persistence, and a multi-step wizard shell.
+DND-AN is a mobile-first D&D 5e character creator web app with a complete character creation wizard (9 steps) and a character sheet view for saved characters.
 
 ## Recently Completed
 
@@ -13,13 +13,14 @@ DND-AN is a mobile-first D&D 5e character creator web app. The foundation is sca
 - [x] Added Google Fonts (Cinzel for titles, Inter for body) via CDN
 - [x] Added Font Awesome 6 via CDN for icons
 - [x] Implemented `src/utils/storage.js` with localStorage helpers (saveCharacter, loadCharacter, listCharacters, deleteCharacter)
-- [x] Implemented `src/utils/navigation.jsx` context-based navigation (useNavigate, useCurrentView)
+- [x] Implemented `src/utils/navigation.jsx` context-based navigation with params support (useNavigate, useCurrentView, useNavigationParams)
 - [x] Built `BottomNav.jsx` floating pill navigation with dragon hero button
 - [x] Built `Home.jsx` with "My Characters" list and empty state
 - [x] Built `CharacterLibrary.jsx` character list view
-- [x] Built `Wizard.jsx` multi-step shell with 7 placeholder steps (Ability Scores, Race, Class, Skills, Equipment, Spells, Summary)
-- [x] Implemented progress indicator and Next/Back navigation in wizard
-- [x] Wired wizard Save button to localStorage via `saveCharacter()`
+- [x] Built full 9-step wizard with separate component files in `src/components/wizard/`
+- [x] Implemented all wizard steps: Identity, Race, Class, Abilities, Background, Skills, Equipment, Spells, Final Touches
+- [x] Built `CharacterSheet.jsx` for viewing saved characters
+- [x] Wired wizard save to navigate to character sheet
 - [x] Verified `bun build`, `bun lint`, and `bun typecheck` all pass
 
 ## Current Structure
@@ -31,21 +32,13 @@ DND-AN is a mobile-first D&D 5e character creator web app. The foundation is sca
 | `src/App.jsx` | Root component + NavigationProvider | ✅ Ready |
 | `src/index.css` | Tailwind imports + custom theme | ✅ Ready |
 | `src/utils/storage.js` | localStorage helper | ✅ Ready |
-| `src/utils/navigation.jsx` | Navigation context | ✅ Ready |
+| `src/utils/navigation.jsx` | Navigation context with params | ✅ Ready |
 | `src/components/BottomNav.jsx` | Floating bottom nav | ✅ Ready |
-| `src/components/Wizard.jsx` | 7-step character wizard | ✅ Ready |
+| `src/components/Wizard.jsx` | 9-step character wizard orchestrator | ✅ Ready |
+| `src/components/wizard/` | 9 individual step components | ✅ Ready |
 | `src/pages/Home.jsx` | Character list home | ✅ Ready |
 | `src/pages/CharacterLibrary.jsx` | Character library view | ✅ Ready |
-
-## Current Focus
-
-Foundation is complete. Next steps depend on user requirements:
-
-1. Implement race/class rules and stat calculations
-2. Add skill selection and equipment logic
-3. Add spell lists and selection
-4. Implement character editing (load saved character into wizard)
-5. Add character deletion from Home view
+| `src/pages/CharacterSheet.jsx` | Character detail view | ✅ Ready |
 
 ## Quick Start Guide
 
@@ -55,12 +48,26 @@ Foundation is complete. Next steps depend on user requirements:
 bun dev
 ```
 
-### To add a new wizard step:
+### Wizard step components:
 
-Edit `src/components/Wizard.jsx`:
-1. Add step name to `STEPS` array
-2. Create a new `StepXxx` component
-3. Add it to `STEP_COMPONENTS` array
+Located in `src/components/wizard/`:
+- `StepIdentity.jsx` - Name (required), player name, alignment
+- `StepRace.jsx` - Human, Elf, Dwarf, Halfling cards
+- `StepClass.jsx` - Fighter, Wizard, Rogue cards with descriptions
+- `StepAbilityScores.jsx` - Standard Array, Point Buy, Manual Entry
+- `StepBackground.jsx` - Background, traits, ideals, bonds, flaws
+- `StepSkills.jsx` - 18 skills checklist with info tooltips
+- `StepEquipment.jsx` - Repeatable item list with placeholder hints
+- `StepSpells.jsx` - Repeatable spell list with placeholder hints + skip button
+- `StepFinalTouches.jsx` - Appearance fields and backstory
+
+### Navigation with params:
+
+```js
+import { useNavigate, useNavigationParams } from '../utils/navigation.jsx'
+navigate('character', { id: character.id })
+const params = useNavigationParams()
+```
 
 ### To add localStorage persistence:
 
@@ -72,14 +79,15 @@ import { saveCharacter, loadCharacter, listCharacters, deleteCharacter } from '.
 ## Pending Improvements
 
 - [ ] Implement character editing (pre-fill wizard from saved character)
-- [ ] Add character detail/view screen
-- [ ] Implement D&D 5e rules for ability scores, races, classes
-- [ ] Add skill selection with proficiency logic
-- [ ] Add equipment selection
+- [ ] Add ability score racial bonuses
+- [ ] Implement full D&D 5e rules for races/classes
+- [ ] Add skill proficiency logic
+- [ ] Add equipment selection from predefined lists
 - [ ] Add spell lists and spell slot tracking
+- [ ] Add character deletion from Home view
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
-| 2026-08-17 | Scaffolded DND-AN with Vite + React + Tailwind, built Home, BottomNav, Wizard, and storage plumbing |
+| 2026-08-17 | Built full 9-step character creation wizard with separate step components, CharacterSheet view, and navigation params support |

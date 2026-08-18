@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, useNavigationParams } from '../utils/navigation.jsx'
+import { useNavigate } from '../utils/navigation.jsx'
 import {
   StepIdentity,
   StepRace,
@@ -60,13 +60,21 @@ export default function Wizard({ onSave }) {
 
   const goNext = () => {
     if (step < STEPS.length - 1) {
-      setStep(s => s + 1)
+      let next = step + 1
+      if (next === 7 && character.class && character.class !== 'Wizard') {
+        next = 8
+      }
+      setStep(next)
     }
   }
 
   const goBack = () => {
     if (step > 0) {
-      setStep(s => s - 1)
+      let prev = step - 1
+      if (prev === 7 && character.class && character.class !== 'Wizard') {
+        prev = 6
+      }
+      setStep(prev)
     }
   }
 
@@ -76,7 +84,7 @@ export default function Wizard({ onSave }) {
   }
 
   const handleSkipSpells = () => {
-    setStep(s => s + 1)
+    setStep(8)
   }
 
   const CurrentStepComponent = STEPS[step].Component

@@ -1,5 +1,6 @@
 import { useNavigationParams, useNavigate } from '../utils/navigation.jsx'
 import { loadCharacter, deleteCharacter } from '../utils/storage.js'
+import srd from '../data/srd.json'
 
 export default function CharacterSheet() {
   const navigate = useNavigate()
@@ -44,6 +45,13 @@ export default function CharacterSheet() {
   const bg = character.background || {}
   const ft = character.finalTouches || {}
 
+  const raceData = srd.races.find(r => r.name === character.race)
+  const classData = srd.classes.find(c => c.name === character.class)
+  const skillDataMap = {}
+  srd.skills.forEach(s => { skillDataMap[s.key] = s })
+  const spellDataMap = {}
+  srd.spells.forEach(s => { spellDataMap[s.name] = s })
+
   return (
     <div className="max-w-lg mx-auto px-4 pt-6 pb-4">
       <div className="flex items-center justify-between mb-6">
@@ -65,21 +73,40 @@ export default function CharacterSheet() {
             <div><span className="text-parchment-dark">Name:</span> <span className="text-parchment">{character.name || '-'}</span></div>
             <div><span className="text-parchment-dark">Player:</span> <span className="text-parchment">{character.playerName || '-'}</span></div>
             <div className="col-span-2"><span className="text-parchment-dark">Alignment:</span> <span className="text-parchment">{character.alignment || '-'}</span></div>
-            <div><span className="text-parchment-dark">Race:</span> <span className="text-parchment">{character.race || '-'}</span></div>
-            <div><span className="text-parchment-dark">Class:</span> <span className="text-parchment">{character.class || '-'}</span></div>
+            <div>
+              <span className="text-parchment-dark">Race:</span>{' '}
+              <span className="text-parchment">{character.race || '-'}</span>
+              {raceData && (
+                <span className="text-parchment-dark text-xs ml-1">({raceData.size}, {raceData.darkvision ? `Darkvision ${raceData.darkvisionRange} ft.` : 'No darkvision'})</span>
+              )}
+            </div>
+            <div>
+              <span className="text-parchment-dark">Class:</span>{' '}
+              <span className="text-parchment">{character.class || '-'}</span>
+              {classData && (
+                <span className="text-parchment-dark text-xs ml-1">(d{classData.hitDie}, {classData.primaryAbility})</span>
+              )}
+            </div>
           </div>
         </div>
 
         <div className="bg-charcoal-light rounded-xl p-5">
           <h2 className="text-lg font-title text-gold mb-3">Ability Scores</h2>
           <div className="grid grid-cols-3 gap-3">
-            {Object.entries(abilityScores).map(([key, val]) => (
-              <div key={key} className="bg-charcoal rounded-lg p-3 text-center">
-                <div className="text-parchment-dark text-xs uppercase tracking-wide">{key}</div>
-                <div className="text-2xl font-bold text-parchment">{val}</div>
-                <div className="text-gold text-sm font-semibold">{getModifier(val)}</div>
-              </div>
-            ))}
+            {Object.entries(abilityScores).map(([key, val]) => {
+              const racialBonus = raceData ? (raceData.abilityScoreIncrease[key] || 0) : 0
+              const finalScore = val + racialBonus
+              return (
+                <div key={key} className="bg-charcoal rounded-lg p-3 text-center">
+                  <div className="text-parchment-dark text-xs uppercase tracking-wide">{key}</div>
+                  <div className="text-2xl font-bold text-parchment">{val}</div>
+                  {racialBonus !== 0 && (
+                    <div className="text-gold text-xs font-semibold">+{racialBonus} racial = {finalScore}</div>
+                  )}
+                  <div className="text-gold text-sm font-semibold">{getModifier(finalScore)}</div>
+                </div>
+              )
+            })}
           </div>
         </div>
 
@@ -101,9 +128,14 @@ export default function CharacterSheet() {
           <div className="bg-charcoal-light rounded-xl p-5">
             <h2 className="text-lg font-title text-gold mb-3">Skills</h2>
             <div className="flex flex-wrap gap-2">
-              {character.skills.map(skill => (
-                <span key={skill} className="bg-charcoal-lighter text-parchment text-sm px-3 py-1 rounded-full">{skill}</span>
-              ))}
+              {character.skills.map(skillKey => {
+                const skill = skillDataMap[skillKey]
+                return (
+                  <span key={skillKey} className="bg-charcoal-lighter text-parchment text-sm px-3 py-1 rounded-full" title={skill?.description || ''}>
+                    {skill?.name || skillKey}
+                  </span>
+                )
+              })}
             </div>
           </div>
         )}
@@ -123,9 +155,14 @@ export default function CharacterSheet() {
           <div className="bg-charcoal-light rounded-xl p-5">
             <h2 className="text-lg font-title text-gold mb-3">Spells</h2>
             <ul className="space-y-1">
-              {character.spells.map((spell, i) => (
-                <li key={i} className="text-parchment text-sm">{spell.name} <span className="text-parchment-dark">(Level {spell.level})</span></li>
-              ))}
+              {character.spells.map((spell, i) => {
+                const spellData = spellDataMap[spell.name]
+                return (
+                  <li key={i} className="text-parchment text-sm" title={spellData?.description || ''}>
+                    {spell.name} <span className="text-parchment-dark">(Level {spell.level})</span>
+                  </li>
+                )
+              })}
             </ul>
           </div>
         )}

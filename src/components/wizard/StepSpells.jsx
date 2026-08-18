@@ -1,11 +1,7 @@
 import React from 'react'
+import srd from '../../data/srd.json'
 
-const PLACEHOLDER_SPELLS = {
-  'Fire Bolt': 'A searing bolt of fire that ignites the target, dealing damage on a successful hit.',
-  'Magic Missile': 'A guaranteed bolt of force that always strikes its target.',
-  'Cure Wounds': 'Channeling positive energy to restore hit points to a creature.',
-  'Shield': 'An invisible barrier of magical force that protects you from harm.',
-}
+const SPELLS = srd.spells
 
 export default function StepSpells({ character, updateCharacter, onSkip }) {
   const spells = character.spells || []
@@ -23,6 +19,11 @@ export default function StepSpells({ character, updateCharacter, onSkip }) {
     updateCharacter({ spells: spells.filter((_, i) => i !== index) })
   }
 
+  const spellHintMap = {}
+  SPELLS.forEach(spell => {
+    spellHintMap[spell.name] = spell.description
+  })
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-title text-gold mb-2">Spells</h2>
@@ -34,8 +35,8 @@ export default function StepSpells({ character, updateCharacter, onSkip }) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <span className="text-parchment text-sm truncate">{spell.name}</span>
-                {PLACEHOLDER_SPELLS[spell.name] && (
-                  <span className="text-parchment-dark text-xs shrink-0" title={PLACEHOLDER_SPELLS[spell.name]}>
+                {spellHintMap[spell.name] && (
+                  <span className="text-parchment-dark text-xs shrink-0" title={spellHintMap[spell.name]}>
                     <i className="fa-solid fa-circle-info" />
                   </span>
                 )}

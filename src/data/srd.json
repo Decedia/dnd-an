@@ -1,0 +1,131 @@
+{
+  "races": [
+    {
+      "name": "Human",
+      "abilityScoreIncrease": { "str": 1, "dex": 1, "con": 1, "int": 1, "wis": 1, "cha": 1 },
+      "speed": 30,
+      "size": "Medium",
+      "darkvision": false,
+      "traits": [
+        { "name": "Ability Score Increase", "description": "Your ability scores each increase by 1." },
+        { "name": "Speed", "description": "Your base walking speed is 30 feet." },
+        { "name": "Size", "description": "Medium." },
+        { "name": "Languages", "description": "You can speak, read, and write Common and one extra language of your choice." }
+      ]
+    },
+    {
+      "name": "Elf",
+      "abilityScoreIncrease": { "str": 0, "dex": 2, "con": 0, "int": 1, "wis": 0, "cha": 0 },
+      "speed": 30,
+      "size": "Medium",
+      "darkvision": true,
+      "darkvisionRange": 60,
+      "traits": [
+        { "name": "Darkvision", "description": "Accustomed to twilit forests and the night sky, you can see in dim light within 60 feet as if it were bright light, and in darkness as if it were dim light." },
+        { "name": "Keen Senses", "description": "You have proficiency in the Perception skill." },
+        { "name": "Fey Ancestry", "description": "You have advantage on saving throws against being charmed, and magic can't put you to sleep." },
+        { "name": "Trance", "description": "Elves do not need to sleep. Instead, they meditate deeply for 4 hours a day." }
+      ]
+    },
+    {
+      "name": "Dwarf",
+      "abilityScoreIncrease": { "str": 0, "dex": 0, "con": 2, "int": 0, "wis": 1, "cha": 0 },
+      "speed": 25,
+      "size": "Medium",
+      "darkvision": true,
+      "darkvisionRange": 60,
+      "traits": [
+        { "name": "Darkvision", "description": "Accustomed to life underground, you have superior vision in dark and dim conditions within 60 feet." },
+        { "name": "Dwarven Resilience", "description": "You have advantage on saving throws against poison, and you have resistance against poison damage." },
+        { "name": "Dwarven Combat Training", "description": "You have proficiency with the battleaxe, handaxe, light hammer, and warhammer." },
+        { "name": "Stonecunning", "description": "Whenever you make an Intelligence (History) check related to the origin of stonework, you are considered proficient in the History skill and add double your proficiency bonus." }
+      ]
+    },
+    {
+      "name": "Halfling",
+      "abilityScoreIncrease": { "str": 0, "dex": 2, "con": 0, "int": 0, "wis": 0, "cha": 1 },
+      "speed": 25,
+      "size": "Small",
+      "darkvision": false,
+      "traits": [
+        { "name": "Lucky", "description": "When you roll a 1 on an attack roll, ability check, or saving throw, you can reroll the die and must use the new roll." },
+        { "name": "Brave", "description": "You have advantage on saving throws against being frightened." },
+        { "name": "Halfling Nimbleness", "description": "You can move through the space of any creature that is of a size larger than yours." },
+        { "name": "Languages", "description": "You can speak, read, and write Common and Halfling." }
+      ]
+    }
+  ],
+  "classes": [
+    {
+      "name": "Fighter",
+      "hitDie": 10,
+      "primaryAbility": "Strength or Dexterity",
+      "savingThrows": ["Strength", "Constitution"],
+      "flavor": "A master of martial combat, skilled with weapons and armor.",
+      "features": [
+        { "name": "Fighting Style", "description": "You adopt a particular style of fighting as your specialty, granting you a combat bonus." },
+        { "name": "Second Wind", "description": "You have a limited well of stamina. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level." },
+        { "name": "Weapon Proficiency", "description": "You are proficient with all simple and martial weapons." },
+        { "name": "Armor Proficiency", "description": "You are proficient with all armor and shields." }
+      ]
+    },
+    {
+      "name": "Wizard",
+      "hitDie": 6,
+      "primaryAbility": "Intelligence",
+      "savingThrows": ["Intelligence", "Wisdom"],
+      "flavor": "A scholarly magic-user who commands arcane power through study and practice.",
+      "features": [
+        { "name": "Spellcasting", "description": "You can cast spells using Intelligence as your spellcasting ability. You prepare a list of wizard spells that are available for you to cast." },
+        { "name": "Arcane Recovery", "description": "Once per day when you finish a short rest, you can recover spell slots with a combined level equal to or less than half your wizard level." },
+        { "name": "Spellbook", "description": "Your spellbook contains six 1st-level wizard spells of your choice. When you gain a level, you add two wizard spells to your spellbook." },
+        { "name": "Ritual Casting", "description": "You can cast any wizard spell as a ritual if that spell has the ritual tag and is in your spellbook." }
+      ]
+    },
+    {
+      "name": "Rogue",
+      "hitDie": 8,
+      "primaryAbility": "Dexterity",
+      "savingThrows": ["Dexterity", "Intelligence"],
+      "flavor": "A stealthy trickster who excels at precision, subterfuge, and skill.",
+      "features": [
+        { "name": "Expertise", "description": "Choose two of your skill proficiencies, or one skill proficiency and your thieves' cant proficiency. Your proficiency bonus is doubled for any ability check using the chosen proficiencies." },
+        { "name": "Sneak Attack", "description": "Once per turn, you can deal extra damage to one creature you hit with an attack if you have advantage on the attack roll, or if another enemy is within 5 feet of the target." },
+        { "name": "Thieves' Cant", "description": "You know a secret language consisting of a mix of dialect, jargon, and code that allows you to hide messages in seemingly normal conversation." },
+        { "name": "Cunning Action", "description": "You can use a bonus action on each of your turns in combat to take the Dash, Disengage, or Hide action." }
+      ]
+    }
+  ],
+  "skills": [
+    { "key": "acrobatics", "name": "Acrobatics", "ability": "Dexterity", "description": "Used for balancing, tumbling, and performing aerial maneuvers." },
+    { "key": "animalHandling", "name": "Animal Handling", "ability": "Wisdom", "description": "Used for calming, training, or reading the intentions of animals." },
+    { "key": "arcana", "name": "Arcana", "ability": "Intelligence", "description": "Used for recalling lore about spells, magic items, and magical phenomena." },
+    { "key": "athletics", "name": "Athletics", "ability": "Strength", "description": "Used for climbing, jumping, and swimming." },
+    { "key": "deception", "name": "Deception", "ability": "Charisma", "description": "Used for lying, disguising, or misleading others." },
+    { "key": "history", "name": "History", "ability": "Intelligence", "description": "Used for recalling lore about historical events, legends, and cultures." },
+    { "key": "insight", "name": "Insight", "ability": "Wisdom", "description": "Used for reading body language, detecting lies, and gauging emotions." },
+    { "key": "intimidation", "name": "Intimidation", "ability": "Charisma", "description": "Used for threatening, bullying, or cowing others into submission." },
+    { "key": "investigation", "name": "Investigation", "ability": "Intelligence", "description": "Used for finding clues, piecing together puzzles, and deducing facts." },
+    { "key": "medicine", "name": "Medicine", "ability": "Wisdom", "description": "Used for stabilizing the dying, diagnosing illness, and treating wounds." },
+    { "key": "nature", "name": "Nature", "ability": "Intelligence", "description": "Used for recalling lore about terrain, plants, animals, and weather." },
+    { "key": "perception", "name": "Perception", "ability": "Wisdom", "description": "Used for spotting, hearing, or otherwise noticing hidden details." },
+    { "key": "performance", "name": "Performance", "ability": "Charisma", "description": "Used for entertaining others through music, dance, oratory, or acting." },
+    { "key": "persuasion", "name": "Persuasion", "ability": "Charisma", "description": "Used for negotiating, cajoling, or charming others to your point of view." },
+    { "key": "religion", "name": "Religion", "ability": "Intelligence", "description": "Used for recalling lore about deities, rites, prayers, and holy symbols." },
+    { "key": "sleightOfHand", "name": "Sleight of Hand", "ability": "Dexterity", "description": "Used for picking pockets, planting items, or performing manual tricks." },
+    { "key": "stealth", "name": "Stealth", "ability": "Dexterity", "description": "Used for hiding, moving silently, or avoiding notice." },
+    { "key": "survival", "name": "Survival", "ability": "Wisdom", "description": "Used for tracking, foraging, navigating the wilds, and predicting weather." }
+  ],
+  "spells": [
+    { "name": "Fire Bolt", "level": 0, "description": "You hurl a mote of fire at a creature or object within range. On a hit, the target takes fire damage." },
+    { "name": "Ray of Frost", "level": 0, "description": "A ray of freezing air projects toward one creature within range. On a hit, it takes cold damage and its speed is reduced until the end of your next turn." },
+    { "name": "Magic Missile", "level": 1, "description": "You create three glowing darts of magical force. Each dart hits a creature of your choice within range, dealing force damage." },
+    { "name": "Shield", "level": 1, "description": "An invisible barrier of magical force appears, granting you a +5 bonus to AC and immunity to magic missile for the duration of the round." },
+    { "name": "Mage Armor", "level": 1, "description": "You touch a willing creature who isn't wearing armor. A magical force field surrounds it, giving it a base AC of 13 plus its Dexterity modifier." },
+    { "name": "Detect Magic", "level": 1, "description": "For the duration, you sense the presence of magic within 30 feet. You can use your action to see a faint aura around any visible creature or object." },
+    { "name": "Burning Hands", "level": 1, "description": "A thin sheet of flames shoots from your outstretched fingertips. Each creature in a 15-foot cone must make a Dexterity saving throw, taking fire damage on a failure." },
+    { "name": "Sleep", "level": 1, "description": "This spell sends creatures into a magical slumber. Roll 5d8; the total is how many hit points of creatures the spell can affect." },
+    { "name": "Comprehend Languages", "level": 1, "description": "For the duration, you understand the literal meaning of any spoken language you hear and can read any written language you see." },
+    { "name": "Chromatic Orb", "level": 1, "description": "You hurl a 4-inch-diameter sphere of energy at a creature within range, dealing your choice of acid, cold, fire, lightning, poison, or thunder damage." }
+  ]
+}

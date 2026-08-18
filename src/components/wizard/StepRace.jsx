@@ -1,30 +1,39 @@
-const RACES = [
-  { value: 'Human', label: 'Human', desc: 'Versatile and ambitious, humans thrive in diverse environments.' },
-  { value: 'Elf', label: 'Elf', desc: 'Graceful and long-lived, elves possess keen senses and magical affinity.' },
-  { value: 'Dwarf', label: 'Dwarf', desc: 'Stout and resilient, dwarves are master craftsfolk and steadfast warriors.' },
-  { value: 'Halfling', label: 'Halfling', desc: 'Small and cheerful, halflings are nimble, lucky, and surprisingly brave.' },
-]
+import React from 'react'
+import srd from '../../data/srd.json'
 
 export default function StepRace({ character, updateCharacter }) {
+  const races = srd.races
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-title text-gold mb-6">Race</h2>
       <div className="grid grid-cols-1 gap-3">
-        {RACES.map(race => {
-          const selected = character.race === race.value
+        {races.map(race => {
+          const selected = character.race === race.name
           return (
             <button
-              key={race.value}
+              key={race.name}
               type="button"
-              onClick={() => updateCharacter({ race: race.value })}
+              onClick={() => updateCharacter({ race: race.name })}
               className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
                 selected
                   ? 'bg-burgundy/20 border-gold shadow-lg shadow-gold/10'
                   : 'bg-charcoal-light border-charcoal-lighter hover:border-parchment-dark'
               }`}
             >
-              <div className="text-parchment font-semibold text-lg">{race.label}</div>
-              <div className="text-parchment-dark text-sm mt-1">{race.desc}</div>
+              <div className="text-parchment font-semibold text-lg">{race.name}</div>
+              <div className="text-parchment-dark text-sm mt-1">
+                {race.size} | Speed {race.speed} ft. | {race.darkvision ? `Darkvision ${race.darkvisionRange} ft.` : 'No darkvision'}
+              </div>
+              {selected && (
+                <div className="mt-3 space-y-1">
+                  {race.traits.map((trait, i) => (
+                    <div key={i} className="text-parchment-dark text-xs">
+                      <span className="text-gold font-semibold">{trait.name}:</span> {trait.description}
+                    </div>
+                  ))}
+                </div>
+              )}
             </button>
           )
         })}
